@@ -1,7 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, BackgroundTasks
 from app.schemas.user_request import UserCreate
 from app.schemas.user_request import UserUpdate
 from app.schemas.user_response import UserResponse
+from app.services.audit_service import audit_log
 from app.services.user_service import (
     create_user,
     get_all_users,
@@ -16,8 +17,11 @@ router = APIRouter(
 )
 
 @router.post("/", response_model=UserResponse)
-def create_user_api(user: UserCreate):
-    return create_user(user)
+def create_user_api(user: UserCreate, background_tasks: BackgroundTasks):
+    new_user = create_user(user)
+
+    background_tasks.add_task(audit_log, "CREATE_USER", f"User {new_user.id} created")
+    return new_user
 
 
 @router.get("/", response_model=list[UserResponse])
