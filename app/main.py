@@ -1,5 +1,6 @@
 import time
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from app.core.config import Settings
 from app.routers.users import router as users_router
 
@@ -28,3 +29,16 @@ async def request_logging_middleware(request: Request, call_next):
     )
 
     return response
+
+# Global exception handler to clearly handle error messages
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    print(f"Unhandled error: {exc}")
+
+    return JSONResponse(
+        status_code=500,
+        content={
+            "success": False,
+            "message": "Internal server error"
+        }
+    )
