@@ -66,21 +66,60 @@ Schemas (validation & serialization)
 Response
 
 
-Request Logging Middleware
+## Request Logging Middleware
 
-A global middleware logs:
+- A global middleware logs:
 
-HTTP method
+- HTTP method
 
-URL path
+- URL path
 
-Status code
+- Status code
 
-Time taken
+- Time taken
 
-Example log:
+- Example log:
 
-POST /users -> 200 [0.0123s]
-
+- POST /users -> 200 [0.0123s]
 
 This helps in debugging, monitoring, and auditing.
+
+## CRUD APIs Implemented
+- Operation	Endpoint
+- Create user	POST /users
+- Get all users	GET /users
+- Get user by ID	GET /users/{id}
+- Update user	PUT /users/{id}
+- Delete user	DELETE /users/{id}
+
+
+## Background Audit Task
+
+- Important actions (like user creation) are logged in the background using FastAPI’s BackgroundTasks.
+
+- Response is sent immediately
+
+- Audit logging runs asynchronously
+
+- Simulates DB/file/external logging
+
+Example output:
+
+[AUDIT] CREATE_USER | User 1 created
+
+## Global Error Handling
+
+- A global exception handler:
+
+- Catches all unhandled exceptions
+
+- Prevents stack traces from leaking
+
+- Returns a clean error response
+
+Example response:
+
+{
+  "success": false,
+  "message": "Internal server error"
+}
