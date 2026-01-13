@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: fastapi_postgres
+    environment:
+      POSTGRES_DB: fastapi_db
+      POSTGRES_USER: fastapi_user
+      POSTGRES_PASSWORD: fastapi_pass
+    ports:
+      - "5432:5432"
+    mem_limit: 1g
+    cpus: "1.0"
+
+
+
+
+ 
