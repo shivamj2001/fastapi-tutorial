@@ -1,19 +1,19 @@
-version: "3.8"
+version: "3.8"  # Specifies the Docker Compose file format version
 
-services:
-  postgres:
-    image: postgres:15
-    container_name: fastapi_postgres
-    environment:
-      POSTGRES_DB: fastapi_db
-      POSTGRES_USER: fastapi_user
-      POSTGRES_PASSWORD: fastapi_pass
+services:       # Defines the different parts of application
+  postgres:     # The name of the specific service (database)
+    image: postgres:15  # Tells Docker to download the official PostgreSQL version 15 image
+    container_name: fastapi_postgres  # Gives a custom name to the running container
+    
+    environment:  # Sets up the internal configuration for the database
+      POSTGRES_DB: fastapi_db        # The name of the database created on startup
+      POSTGRES_USER: fastapi_user    # The username used to log in
+      POSTGRES_PASSWORD: fastapi_pass # The password for the user
+      
     ports:
+      # Maps your computer's port (left) to the container's port (right)
+      # This allows your FastAPI app to connect to 'localhost:5432'
       - "5432:5432"
-    mem_limit: 1g
-    cpus: "1.0"
-
-
-
-
- 
+      
+    mem_limit: 1g  # Resource Limit: Prevents the DB from using more than 1GB of RAM
+    cpus: "1.0"    # Resource Limit: Prevents the DB from using more than 1 CPU core
