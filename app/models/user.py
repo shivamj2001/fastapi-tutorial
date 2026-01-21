@@ -20,6 +20,11 @@ class User(Base):
     # 4. Maps the 'age' attribute to an INTEGER column in SQL.
     age: Mapped[int] = mapped_column(Integer)
 
+    # For Authentication :
+    username: Mapped[str] = mapped_column(String, unique=True, index=True, nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String, nullable=False)
+    role: Mapped[str] = mapped_column(String, default="user", nullable=False)
+
     # 5. Relationship logic (Foreign Key link).
     # This doesn't exist as a physical column in the 'users' table. 
     # Instead, it's a "virtual" property that allows you to access a user's addresses like: my_user.addresses.
