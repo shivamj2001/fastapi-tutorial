@@ -7,6 +7,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.schemas.user_request import UserCreate, UserUpdate
 from app.schemas.user_response import UserResponse
 
+
+from app.core.dependencies import require_role # Role-based access control dependency
+
 # Service Functions: The logic that actually talks to PostgreSQL
 from app.services.user_service import (
     create_user,
@@ -56,9 +59,12 @@ async def update_user_api(user_id: int, user: UserUpdate, db: AsyncSession = Dep
         raise HTTPException(status_code=404, detail="User not found")
     return updated_user
 
+
 # 5. DELETE: Remove a user from the database
 @router.delete("/{user_id}")
-async def delete_user_api(user_id: int, db: AsyncSession = Depends(get_db)):
+
+# This endpoint requires the current user to have the 'admin' role, enforced by the 'require_role' dependency.
+async def delete_user_api(user_id: int, db: AsyncSession = Depends(get_db), current_user=Depends(require_role("admin"))):
     success = await delete_user(db, user_id)
     if not success:
         raise HTTPException(status_code=404, detail="User not found")
