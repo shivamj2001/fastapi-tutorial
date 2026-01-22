@@ -5,6 +5,8 @@ from app.core.config import Settings
 from app.routers.users import router as users_router
 # Import the authentication router
 from app.routers.auth import router as auth_router
+from app.routers.files import router as file_router
+
 
 
 # 1. Initialize settings to get app name and debug mode
@@ -21,6 +23,8 @@ app = FastAPI(
 app.include_router(users_router)
 # 4. Connect the authentication-related routes to the main app
 app.include_router(auth_router)
+# 5. Connect the file-related routes to the main app
+app.include_router(file_router)
 
 
 # --- MIDDLEWARE: The "Monitor" ---

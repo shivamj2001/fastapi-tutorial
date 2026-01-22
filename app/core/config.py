@@ -19,8 +19,16 @@ class Settings(BaseSettings):
     db_user: str
     db_password: str
 
+    minio_endpoint: str
+    minio_access_key: str
+    minio_secret_key: str
+
     # --- Internal Config ---
     class Config:
         # This tells Pydantic to look for a file named ".env" 
         # in the root directory to find the values above.
         env_file = ".env"
+
+
+# Create a single global 'settings' object that can be imported anywhere
+settings = Settings()

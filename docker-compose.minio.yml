@@ -1,0 +1,17 @@
+# version: "3.8"
+
+# Docker Compose configuration for MinIO server
+services:
+# This service sets up a MinIO server with web console access
+  minio:
+  # The official MinIO Docker image
+    image: minio/minio
+    container_name: minio
+    ports:
+      - "9000:9000"      # This maps the MinIO server port
+      - "9001:9001"       # This maps the MinIO web console port
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+      # Setting environment variables for MinIO root user credentials
+    command: server /data --console-address ":9001"
