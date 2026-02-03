@@ -11,7 +11,7 @@ from jose import jwt, JWTError
 
 # JWT configuration
 # These should be set to secure values in a real application
-SECRET_KEY = "CHANGE_ME_TO_A_RANDOM_SECRET"
+SECRET_KEY = "A_RANDOM_SECRET"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 

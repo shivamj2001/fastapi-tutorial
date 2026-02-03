@@ -31,10 +31,10 @@ router = APIRouter(
 # --- ENDPOINTS ---
 
 # 1. CREATE: Create a new user
-@router.post("/", response_model=UserResponse)
-async def create_user_api(user: UserCreate, db: AsyncSession = Depends(get_db)):
+# @router.post("/", response_model=UserResponse)
+# async def create_user_api(user: UserCreate, db: AsyncSession = Depends(get_db)):
     # Calls the service and waits for the database to save the user
-    return await create_user(db, user)
+#    return await create_user(db, user)
 
 # 2. READ ALL: Get a list of all users
 @router.get("/", response_model=list[UserResponse])
